@@ -26,6 +26,6 @@ private:
     FieldManager();
     ~FieldManager();
 
-    const std::unordered_set<int> _validFieldTypeSet;
+    const std::unordered_set<FieldType> _validFieldTypeSet;
     FieldType _fieldType;
 };

@@ -76,7 +76,7 @@ bool CreatureController::IsDead()
 
 int CreatureController::GetMaxHp()
 {
-	return _hp;
+	return _maxHp;
 }
 
 int CreatureController::GetHp()
