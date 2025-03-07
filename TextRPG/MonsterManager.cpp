@@ -8,7 +8,7 @@ MonsterManager::MonsterManager()
     {
         {MonsterType::Slime, []() { return std::make_unique<SlimeController>(); }},
         {MonsterType::Skeleton, []() { return std::make_unique<SkeletonController>(); }},
-        {MonsterType::Dragon,   []() { return std::make_unique<DragoneController>(); }}
+        {MonsterType::Dragon,   []() { return std::make_unique<DragonController>(); }}
     }
 {
     for (const auto& pair : _monsterTypeMap)
@@ -44,7 +44,8 @@ MonsterController* MonsterManager::GetMonster()
     return _monster.get();
 }
 
-void MonsterManager::SetMonster(std::unique_ptr<MonsterController> monster)
+// 참조를 통해 값 복사 없이 전달
+void MonsterManager::SetMonster(std::unique_ptr<MonsterController>&& monster)
 {
     _monster = std::move(monster);
 }

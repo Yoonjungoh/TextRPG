@@ -4,13 +4,12 @@
 FieldManager::FieldManager()
     :_fieldType(FieldType::None),
     _validFieldTypeSet
-({
-
-    static_cast<int>(FieldType::Lobby),
-    static_cast<int>(FieldType::Village),
-    static_cast<int>(FieldType::Forest),
-    static_cast<int>(FieldType::Battle),
- })
+    {
+          static_cast<int>(FieldType::Lobby),
+          static_cast<int>(FieldType::Village),
+          static_cast<int>(FieldType::Forest),
+          static_cast<int>(FieldType::Battle) 
+    }
 {
 
 }

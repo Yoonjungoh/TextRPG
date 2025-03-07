@@ -1,7 +1,7 @@
 #include "DragonController.h"
 
 
-DragoneController::DragoneController() 
+DragonController::DragonController()
 	: MonsterController(MonsterType::Dragon)
 {
 	_maxHp = 50;

@@ -1,5 +1,7 @@
 ﻿
 #include "GameController.h"
+#include <chrono>
+#include <thread>
 
 int main()
 {
@@ -9,5 +11,6 @@ int main()
 	while (true)
 	{
 		gameController.Update();
+		std::this_thread::sleep_for(std::chrono::milliseconds(16));
 	}
 }

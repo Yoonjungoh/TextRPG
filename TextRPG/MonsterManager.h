@@ -18,7 +18,10 @@ public:
     std::unique_ptr<MonsterController> CreateRandomMonster();  // 현재 몬스터 소환은 이것만 사용
     std::unique_ptr<MonsterController> CreateMonster(MonsterType monsterType);  // 후에 지정 몬스터 소환 원할 수 있으니 public으로 빼기
     MonsterController* GetMonster();
-    void SetMonster(std::unique_ptr<MonsterController> monster);
+
+    // 참조를 통해 값 복사 없이 전달
+    // 안해주면 유니크 포인터 객체를 생성함
+    void SetMonster(std::unique_ptr<MonsterController>&& monster);
 
 private:
     friend class Singleton<MonsterManager>;

@@ -32,7 +32,8 @@ PlayerController* PlayerManager::GetPlayer()
     return _player.get();
 }
 
-void PlayerManager::SetPlayer(std::unique_ptr<PlayerController> player)
+// 참조를 통해 값 복사 없이 전달
+void PlayerManager::SetPlayer(std::unique_ptr<PlayerController>&& player)
 {
     _player = std::move(player);
 }

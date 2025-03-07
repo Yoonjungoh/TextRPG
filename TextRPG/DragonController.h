@@ -2,8 +2,8 @@
 
 #include "MonsterController.h"
 
-class DragoneController : public MonsterController
+class DragonController : public MonsterController
 {
 public:
-	DragoneController();
+	DragonController();
 };

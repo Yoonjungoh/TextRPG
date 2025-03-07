@@ -34,7 +34,7 @@ public:
 
 protected:
 	CreatureController(CreatureType creatureType);  // 직접 생성되는 거 막음
-	~CreatureController();
+	virtual ~CreatureController();
 
 	void SetHp(int hp);
 

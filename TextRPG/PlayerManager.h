@@ -19,7 +19,9 @@ public:
 
     PlayerController* GetPlayer();
 
-    void SetPlayer(std::unique_ptr<PlayerController> player);
+    // 참조를 통해 값 복사 없이 전달
+    // 안해주면 유니크 포인터 객체를 생성함
+    void SetPlayer(std::unique_ptr<PlayerController>&& player);
 
 private:
     friend class Singleton<PlayerManager>;
