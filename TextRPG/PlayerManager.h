@@ -17,6 +17,8 @@ public:
     // Player는 이 게임에서는 하나만 존재한다고 가정해서 unique 포인터 사용
     std::unique_ptr<PlayerController> CreatePlayer(PlayerType playerType);
 
+    PlayerController* GetPlayer();
+
     void SetPlayer(std::unique_ptr<PlayerController> player);
 
 private:

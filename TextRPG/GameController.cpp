@@ -8,8 +8,11 @@
 GameController::GameController()
 {
 	_oss << "-------------------------게임 시작---------------------------";
+
+	// 출력
 	std::cout << std::endl << _oss.str() << std::endl;
 
+	// 버퍼 비우기
 	_oss.clear();
 	_oss.str("");
 }
@@ -17,8 +20,11 @@ GameController::GameController()
 GameController::~GameController()
 {
 	_oss << "-------------------------게임 종료-------------------------";
+
+	// 출력
 	std::cout << std::endl << _oss.str() << std::endl;
 
+	// 버퍼 비우기
 	_oss.clear();
 	_oss.str("");
 }
@@ -59,6 +65,7 @@ void GameController::UpdateLobby()
 	_oss << "\n[2] 궁수\n";
 	_oss << "\n[3] 마법사\n";
 
+	// 출력
 	std::cout << _oss.str();
 
 	ChoosePlayerTypeByUser
@@ -71,6 +78,7 @@ void GameController::UpdateLobby()
 	// 마을로 이동
 	FieldManager::GetInstance().SetFieldType(FieldType::Village);
 
+	// 버퍼 비우기
 	_oss.clear();
 	_oss.str("");
 }
@@ -83,6 +91,7 @@ void GameController::UpdateVillage()
 	_oss << "\n[1] 로비 (직업 재선택)\n";
 	_oss << "\n[2] 숲 (몬스터와 전투)\n";
 
+	// 출력
 	std::cout << _oss.str();
 
 	ChooseFieldTypeByUser
@@ -91,6 +100,7 @@ void GameController::UpdateVillage()
 		{2, FieldType::Forest}
 	});
 
+	// 버퍼 비우기
 	_oss.clear();
 	_oss.str("");
 }
@@ -102,12 +112,11 @@ void GameController::UpdateForest()
 	MonsterManager::GetInstance().SetMonster(std::move(randomMonster));
 
 	// 유저 선택 창
-	int fieldTypeInt;
-
 	_oss << "\n---------------------전투 선택-------------------------\n";
-	_oss << "\n[1] 전투 (배틀 진입)\n";
+	_oss << "\n[1] 전투 시작 (배틀 진입)\n";
 	_oss << "\n[2] 도망 (마을로 도망)\n";
 
+	// 출력
 	std::cout << _oss.str();
 
 	ChooseFieldTypeByUser
@@ -116,14 +125,34 @@ void GameController::UpdateForest()
 		{2, FieldType::Village}
 	});
 
-
+	// 버퍼 비우기
 	_oss.clear();
 	_oss.str("");
 }
 
 void GameController::UpdateBattle()
 {
+	// 유저 선택 창
+	_oss << "\n=====================전투 진입=========================\n";
+	_oss << "\n---------------------행동 선택-------------------------\n";
+	_oss << "\n[1] 일반 공격\n";
+	_oss << "\n[2] 특수 공격 (" <<
+		PlayerManager::GetInstance().GetPlayer()->GetSpecialAttackSuccessProbability() << "% 확률로 몬스터 즉사)\n" <<
+		"(단, 플레이어도 몬스터에게 " <<
+		MonsterManager::GetInstance().GetMonster()->GetSpecialAttackSuccessProbability() << "% 확률로 즉사)\n";
 
+	// 출력
+	std::cout << _oss.str();
+
+	ChooseAttackTypeByUser
+	({
+		{1, AttackType::Common},
+		{2, AttackType::Special}
+	});
+
+	// 버퍼 비우기
+	_oss.clear();
+	_oss.str("");
 }
 
 
@@ -171,3 +200,47 @@ void GameController::ChooseFieldTypeByUser(const std::unordered_map<int, FieldTy
 	}
 }
 
+void GameController::ChooseAttackTypeByUser(const std::unordered_map<int, AttackType>& optionMap)
+{
+	int attackTypeInt;
+	std::cin >> attackTypeInt;
+
+	auto it = optionMap.find(attackTypeInt);
+	if (it != optionMap.end())
+	{
+		AttackType attackType = it->second;
+		ProcessAttack(attackType);
+	}
+	else
+	{
+		std::cout << "잘못된 입력입니다\n게임을 종료합니다\n";
+		exit(0);
+	}
+}
+
+void GameController::ProcessAttack(AttackType attackType)
+{
+	// 몬스터가 데미지 입음 = 플레이어가 공격함
+	MonsterManager::GetInstance().GetMonster()->
+		OnDamaged(PlayerManager::GetInstance().GetPlayer(), attackType);
+
+	// 몬스터 죽었나 확인
+	if (MonsterManager::GetInstance().GetMonster()->IsDead())
+	{
+		// 마을로 이동
+		FieldManager::GetInstance().SetFieldType(FieldType::Village);
+		return;
+	}
+
+	// 플레이어가 데미지 입음 = 몬스터가 공격함
+	PlayerManager::GetInstance().GetPlayer()->
+		OnDamaged(MonsterManager::GetInstance().GetMonster(), attackType);
+
+	// 플레이어 죽었나 확인
+	if (PlayerManager::GetInstance().GetPlayer()->IsDead())
+	{
+		// 로비로 이동
+		FieldManager::GetInstance().SetFieldType(FieldType::Lobby);
+		return;
+	}
+}

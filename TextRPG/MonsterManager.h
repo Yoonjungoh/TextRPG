@@ -17,6 +17,7 @@ class MonsterManager : public Singleton<MonsterManager>
 public:
     std::unique_ptr<MonsterController> CreateRandomMonster();  // 현재 몬스터 소환은 이것만 사용
     std::unique_ptr<MonsterController> CreateMonster(MonsterType monsterType);  // 후에 지정 몬스터 소환 원할 수 있으니 public으로 빼기
+    MonsterController* GetMonster();
     void SetMonster(std::unique_ptr<MonsterController> monster);
 
 private:

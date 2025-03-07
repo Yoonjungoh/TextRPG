@@ -26,6 +26,12 @@ std::unique_ptr<PlayerController> PlayerManager::CreatePlayer(PlayerType playerT
     return (it != _playerTypeMap.end()) ? it->second() : nullptr;
 }
 
+PlayerController* PlayerManager::GetPlayer()
+{
+    // 소유권 이전이 아니라서 move가 아닌 get써서 유니크 포인터에서 원본 포인터 반환함
+    return _player.get();
+}
+
 void PlayerManager::SetPlayer(std::unique_ptr<PlayerController> player)
 {
     _player = std::move(player);

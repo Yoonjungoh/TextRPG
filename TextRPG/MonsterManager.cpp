@@ -38,6 +38,12 @@ std::unique_ptr<MonsterController> MonsterManager::CreateMonster(MonsterType mon
     return (it != _monsterTypeMap.end()) ? it->second() : nullptr;
 }
 
+MonsterController* MonsterManager::GetMonster()
+{
+    // 소유권 이전이 아니라서 move가 아닌 get써서 유니크 포인터에서 원본 포인터 반환함
+    return _monster.get();
+}
+
 void MonsterManager::SetMonster(std::unique_ptr<MonsterController> monster)
 {
     _monster = std::move(monster);
