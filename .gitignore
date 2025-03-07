@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+.vs/TextRPG/v17
 TextRPG/x64/Debug/TextRPG.tlog/link.read.1.tlog
 TextRPG/x64/Debug/TextRPG.tlog/link.secondary.1.tlog
 TextRPG/x64/Debug/TextRPG.tlog/link.write.1.tlog
