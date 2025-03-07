@@ -15,16 +15,18 @@ public:
 	virtual void OnDead(CreatureController* attacker);
 	virtual bool IsDead();
 
-	int getHp();
-	int getAttack();
-	int getDefense();
-	std::string getName();
+	int GetHp();
+	int GetAttack();
+	int GetDefense();
+	std::string GetName();
+
+	void PrintInfo();
 
 protected:
 	CreatureController(CreatureType creatureType);  // 직접 생성되는 거 막음
 	~CreatureController();
 
-	void setHp(int hp);
+	void SetHp(int hp);
 
 	int _hp;
 	int _attack;

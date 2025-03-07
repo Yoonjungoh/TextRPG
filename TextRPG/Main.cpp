@@ -1,9 +1,13 @@
-﻿#include <iostream>
-using namespace std;
-
+﻿
+#include "GameController.h"
 
 int main()
 {
-	srand(time(0));
-	cout << rand();
+	GameController gameController;
+	gameController.Init();
+
+	while (true)
+	{
+		gameController.Update();
+	}
 }

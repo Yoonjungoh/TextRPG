@@ -12,16 +12,10 @@ enum class PlayerType
 
 class PlayerController : public CreatureController
 {
+public:
+	PlayerController(PlayerType playerType);
+	~PlayerController();
+
 protected:
-	PlayerController(PlayerType playerType) : CreatureController(CreatureType::Player), _playerType(playerType)
-	{
-
-	}
-
-	virtual ~PlayerController()
-	{
-
-	}
-
 	PlayerType _playerType;
 };
