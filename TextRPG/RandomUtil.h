@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-// Util 함수들은 자주 수행되니 코드 복붙해주는 inline이 유리함
+// Util 함수들은 자주 수행되고 짧으니 코드 복붙해주는 inline이 유리함
 namespace RandomUtil    // 객체 생성 안해도 되니 클래스가 아니라 namespace 선언해줌
 {
     inline void InitRandom()

@@ -51,10 +51,10 @@ int CreatureController::CalculateDamageByAttackType(CreatureController* attacker
 			break;
 		case AttackType::Special:
 			// 즉사 공격이 성공했는지 우선 판단
-			// 즉사 공격 데미지는 맞는 생명체의 최대 체력 + 방어력으로 상정
+			// 즉사 공격 데미지는 맞는 생명체의 최대 체력으로 상정
 			if (RandomUtil::IsSuccess(attacker->GetSpecialAttackSuccessProbability()))
 			{
-				totalDamage = this->GetMaxHp() + this->GetDefense();
+				totalDamage = this->GetMaxHp();
 			}
 			break;
 	}
